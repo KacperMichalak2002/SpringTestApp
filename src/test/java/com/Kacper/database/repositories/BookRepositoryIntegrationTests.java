@@ -1,52 +1,46 @@
-//package com.Kacper.database.repositories;
-//
-//import com.Kacper.database.TestDataUtil;
-//import com.Kacper.database.dao.AuthorDao;
-//import com.Kacper.database.domain.Author;
-//import com.Kacper.database.domain.Book;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.annotation.DirtiesContext;
-//import org.springframework.test.context.junit.jupiter.SpringExtension;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//import static org.assertj.core.api.Assertions.tuple;
-//
-//@SpringBootTest
-//@ExtendWith(SpringExtension.class)
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-//public class BookDaoImplIntegrationTest {
-//
-//
-//    private AuthorDao authorDao;
-//    private BookDaoImpl underTest;
-//
-//    @Autowired
-//    public BookDaoImplIntegrationTest(BookDaoImpl underTest, AuthorDao authorDao){
-//        this.underTest = underTest;
-//        this.authorDao = authorDao;
-//    }
-//
-//    @Test
-//    public void testThatBookCanBeCreatedAndRecalled(){
-//        Author author = TestDataUtil.createTestAuthorA();
-//        authorDao.create(author);
-//        Book book = TestDataUtil.createTestBookA();
-//        book.setAuthor_id(author.getId());
-//        underTest.create(book);
-//        Optional<Book> result = underTest.findOne(book.getIsbn());
-//        assertThat(result).isPresent();
-//        Book actualBook = result.get();
-//        assertThat(actualBook.getIsbn()).isEqualTo(book.getIsbn());
-//        assertThat(actualBook.getTitle()).isEqualTo(book.getTitle());
-//        assertThat(actualBook.getAuthor_id()).isEqualTo(book.getAuthor_id());
-//
-//    }
+package com.Kacper.database.repositories;
+
+import com.Kacper.database.TestDataUtil;
+import com.Kacper.database.domain.Author;
+import com.Kacper.database.domain.Book;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+public class BookRepositoryIntegrationTests {
+
+    private BookRepository underTest;
+
+    @Autowired
+    private AuthorRepository authorRepository;
+
+    @Autowired
+    public BookRepositoryIntegrationTests(BookRepository underTest){
+        this.underTest = underTest;
+    }
+
+    @Test
+    public void testThatBookCanBeCreatedAndRecalled(){
+        Author author = authorRepository.save(TestDataUtil.createTestAuthorA());
+        Book book = TestDataUtil.createTestBookA(author);
+        underTest.save(book);
+
+        Optional<Book> result = underTest.findById(book.getIsbn());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(book);
+    }
 //
 //    @Test
 //    public void testThatMultipleBooksCanBeCreatedAndRecalled(){
@@ -109,5 +103,5 @@
 //        Optional <Book> result = underTest.findOne(bookA.getIsbn());
 //        assertThat(result).isEmpty();
 //    }
-//
-//}
+
+}

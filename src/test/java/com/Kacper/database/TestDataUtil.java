@@ -9,50 +9,50 @@ public final class TestDataUtil {
     }
 
     public static Author createTestAuthorA() {
-        Author author = new Author();
-        author.setId(1L);
-        author.setName("Abigail Rose");
-        author.setAge(80);
-        return author;
+        return Author.builder()
+                //.id(1L)
+                .name("Abigail Rose")
+                .age(80)
+                .build();
     }
 
     public static Author createTestAuthorB() {
-        Author author = new Author();
-        author.setId(2L);
-        author.setName("Thomas Cronin");
-        author.setAge(44);
-        return author;
+        return Author.builder()
+                //.id(2L)
+                .name("Thomas Cronin")
+                .age(44)
+                .build();
     }
 
     public static Author createTestAuthorC() {
-        Author author = new Author();
-        author.setId(3L);
-        author.setName("Jesse A Casey");
-        author.setAge(24);
-        return author;
+        return Author.builder()
+                //.id(3L)
+                .name("Jesse A Casey")
+                .age(24)
+                .build();
     }
 
-    public static Book createTestBookA() {
-        Book book = new Book();
-        book.setIsbn("987-123-456-8");
-        book.setTitle("The shadown in the attic");
-        book.setAuthor_id(1L);
-        return book;
+    public static Book createTestBookA(final Author author) {
+        return Book.builder()
+                .isbn("987-123-456-8")
+                .title("The shadown in the attic")
+                .author(author)
+                .build();
     }
 
-    public static Book createTestBookB() {
-        Book book = new Book();
-        book.setIsbn("987-123-456-38");
-        book.setTitle("Beyond the Horizon");
-        book.setAuthor_id(2L);
-        return book;
+    public static Book createTestBookB(final Author author) {
+        return Book.builder()
+                .isbn("987-123-456-38")
+                .title("Beyond the Horizon")
+                .author(author)
+                .build();
     }
 
-    public static Book createTestBookC() {
-        Book book = new Book();
-        book.setIsbn("987-123-456-85");
-        book.setTitle("The Last Ember");
-        book.setAuthor_id(3L);
-        return book;
+    public static Book createTestBookC(final Author author) {
+        return Book.builder()
+                .isbn("987-123-456-85")
+                .title("The Last Ember")
+                .author(author)
+                .build();
     }
 }

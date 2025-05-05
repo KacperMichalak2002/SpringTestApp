@@ -1,45 +1,44 @@
-//package com.Kacper.database.repositories;
-//
-//import com.Kacper.database.TestDataUtil;
-//import com.Kacper.database.domain.Author;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.annotation.DirtiesContext;
-//import org.springframework.test.context.junit.jupiter.SpringExtension;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//import static org.assertj.core.api.AssertionsForClassTypes.tuple;
-//
-//@SpringBootTest
-//@ExtendWith(SpringExtension.class)
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-//public class AuthorDaoImplIntegrationTests {
-//
-//    private AuthorDaoImpl underTest;
-//
-//    @Autowired
-//    public AuthorDaoImplIntegrationTests(AuthorDaoImpl underTest){
-//        this.underTest = underTest;
-//    }
-//
-//    @Test
-//    public void testThatAuthorCanBeCreatedAndRecalled(){
-//
-//        Author author = TestDataUtil.createTestAuthorA();
-//        underTest.create(author);
-//        Optional<Author> result = underTest.findOne(author.getId());
-//        assertThat(result).isPresent();
-//        Author actualAuthor = result.get();
-//        assertThat(actualAuthor.getId()).isEqualTo(author.getId());
-//        assertThat(actualAuthor.getName()).isEqualTo(author.getName());
-//        assertThat(actualAuthor.getAge()).isEqualTo(author.getAge());
-//    }
-//
+package com.Kacper.database.repositories;
+
+import com.Kacper.database.TestDataUtil;
+import com.Kacper.database.domain.Author;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.tuple;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+public class AuthorRepositoryIntegrationTests {
+
+    private AuthorRepository underTest;
+
+    @Autowired
+    public AuthorRepositoryIntegrationTests(AuthorRepository underTest){
+        this.underTest = underTest;
+    }
+
+    @Test
+    public void testThatAuthorCanBeCreatedAndRecalled(){
+
+        Author author = TestDataUtil.createTestAuthorA();
+        underTest.save(author);
+        Optional<Author> result = underTest.findById(author.getId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(author);
+
+
+    }
+
 //    @Test
 //    public void testThatMultipleAuthorsCanBeCreatedAndRecalled(){
 //        Author authorA = TestDataUtil.createTestAuthorA();
@@ -81,4 +80,4 @@
 //        Optional<Author> result = underTest.findOne(authorA.getId());
 //        assertThat(result).isEmpty();
 //    }
-//}
+}
