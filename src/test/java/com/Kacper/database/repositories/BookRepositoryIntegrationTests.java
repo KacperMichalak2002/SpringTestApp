@@ -62,38 +62,31 @@ public class BookRepositoryIntegrationTests {
 
     }
 
-//    @Test
-//    public void testThatBookCanBeUpdated(){
-//        Author author = TestDataUtil.createTestAuthorA();
-//        authorDao.create(author);
-//
-//        Book bookA = TestDataUtil.createTestBookA();
-//        bookA.setAuthor_id(author.getId());
-//        underTest.create(bookA);
-//
-//        bookA.setTitle("UPDATED");
-//        underTest.update(bookA.getIsbn(),bookA);
-//
-//        Optional<Book> result = underTest.findOne(bookA.getIsbn());
-//        assertThat(result).isPresent();
-//        Book actualBook = result.get();
-//        assertThat(actualBook.getIsbn()).isEqualTo(bookA.getIsbn());
-//        assertThat(actualBook.getTitle()).isEqualTo(bookA.getTitle());
-//        assertThat(actualBook.getAuthor_id()).isEqualTo(bookA.getAuthor_id());
-//    }
-//
-//    @Test
-//    public void testThatBookCanBeDeleted(){
-//        Author author = TestDataUtil.createTestAuthorA();
-//        authorDao.create(author);
-//
-//        Book bookA = TestDataUtil.createTestBookA();
-//        bookA.setAuthor_id(author.getId());
-//        underTest.create(bookA);
-//
-//        underTest.delete(bookA.getIsbn());
-//        Optional <Book> result = underTest.findOne(bookA.getIsbn());
-//        assertThat(result).isEmpty();
-//    }
+    @Test
+    public void testThatBookCanBeUpdated(){
+        Author author = authorRepository.save(TestDataUtil.createTestAuthorA());
+
+        Book bookA = TestDataUtil.createTestBookA(author);
+        underTest.save(bookA);
+
+        bookA.setTitle("UPDATED");
+        underTest.save(bookA);
+
+        Optional<Book> result = underTest.findById(bookA.getIsbn());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(bookA);
+    }
+
+    @Test
+    public void testThatBookCanBeDeleted(){
+        Author author = authorRepository.save(TestDataUtil.createTestAuthorA());
+
+        Book bookA = TestDataUtil.createTestBookA(author);
+        underTest.save(bookA);
+
+        underTest.deleteById(bookA.getIsbn());
+        Optional <Book> result = underTest.findById(bookA.getIsbn());
+        assertThat(result).isEmpty();
+    }
 
 }
