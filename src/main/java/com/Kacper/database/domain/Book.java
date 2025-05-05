@@ -1,10 +1,18 @@
 package com.Kacper.database.domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
 
+    @Id
     private String isbn;
     private String title;
-    private Long author_id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     public String getIsbn() {
         return isbn;
@@ -22,11 +30,11 @@ public class Book {
         this.title = title;
     }
 
-    public Long getAuthor_id() {
-        return author_id;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthor_id(Long author_id) {
-        this.author_id = author_id;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }
