@@ -39,24 +39,21 @@ public class AuthorRepositoryIntegrationTests {
 
     }
 
-//    @Test
-//    public void testThatMultipleAuthorsCanBeCreatedAndRecalled(){
-//        Author authorA = TestDataUtil.createTestAuthorA();
-//        underTest.create(authorA);
-//        Author authorB = TestDataUtil.createTestAuthorB();
-//        underTest.create(authorB);
-//        Author authorC = TestDataUtil.createTestAuthorC();
-//        underTest.create(authorC);
-//
-//        List<Author> result =  underTest.find();
-//        assertThat(result).hasSize(3);
-//        assertThat(result).extracting(Author::getId, Author::getName, Author::getAge).containsExactly(
-//                tuple(authorA.getId(), authorA.getName(), authorA.getAge()),
-//                tuple(authorB.getId(), authorB.getName(), authorB.getAge()),
-//                tuple(authorC.getId(), authorC.getName(), authorC.getAge())
-//        );
-//    }
-//
+    @Test
+    public void testThatMultipleAuthorsCanBeCreatedAndRecalled(){
+        Author authorA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorA);
+        Author authorB = TestDataUtil.createTestAuthorB();
+        underTest.save(authorB);
+        Author authorC = TestDataUtil.createTestAuthorC();
+        underTest.save(authorC);
+
+        Iterable<Author> result =  underTest.findAll();
+        assertThat(result)
+                .hasSize(3)
+                .containsExactly(authorA, authorB, authorC);
+    }
+
 //    @Test
 //    public void testThatAuthorCanBeUpdated(){
 //        Author authorA = TestDataUtil.createTestAuthorA();
