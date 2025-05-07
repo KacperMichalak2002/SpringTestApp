@@ -1,5 +1,7 @@
 package com.Kacper.database;
 
+import com.Kacper.database.domain.dto.AuthorDto;
+import com.Kacper.database.domain.dto.BookDto;
 import com.Kacper.database.domain.entities.AuthorEntity;
 import com.Kacper.database.domain.entities.BookEntity;
 
@@ -32,11 +34,19 @@ public final class TestDataUtil {
                 .build();
     }
 
-    public static BookEntity createTestBookA(final AuthorEntity authorEntity) {
+    public static BookEntity createTestBookEntityA(final AuthorEntity authorEntity) {
         return BookEntity.builder()
                 .isbn("987-123-456-8")
                 .title("The shadown in the attic")
-                .authorEntity(authorEntity)
+                .author(authorEntity)
+                .build();
+    }
+
+    public static BookDto createTestBookDtoA(final AuthorDto authorDto) {
+        return BookDto.builder()
+                .isbn("987-123-456-8")
+                .title("The shadown in the attic")
+                .author(authorDto)
                 .build();
     }
 
@@ -44,7 +54,7 @@ public final class TestDataUtil {
         return BookEntity.builder()
                 .isbn("987-123-456-38")
                 .title("Beyond the Horizon")
-                .authorEntity(authorEntity)
+                .author(authorEntity)
                 .build();
     }
 
@@ -52,7 +62,7 @@ public final class TestDataUtil {
         return BookEntity.builder()
                 .isbn("987-123-456-85")
                 .title("The Last Ember")
-                .authorEntity(authorEntity)
+                .author(authorEntity)
                 .build();
     }
 }

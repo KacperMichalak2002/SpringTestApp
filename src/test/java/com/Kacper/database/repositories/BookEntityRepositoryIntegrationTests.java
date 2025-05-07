@@ -32,7 +32,7 @@ public class BookEntityRepositoryIntegrationTests {
     @Test
     public void testThatBookCanBeCreatedAndRecalled(){
         AuthorEntity authorEntity = authorRepository.save(TestDataUtil.createTestAuthorA());
-        BookEntity bookEntity = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntity = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.save(bookEntity);
 
         Optional<BookEntity> result = underTest.findById(bookEntity.getIsbn());
@@ -44,7 +44,7 @@ public class BookEntityRepositoryIntegrationTests {
     public void testThatMultipleBooksCanBeCreatedAndRecalled(){
         AuthorEntity authorEntity = authorRepository.save(TestDataUtil.createTestAuthorA());
 
-        BookEntity bookEntityA = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntityA = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.save(bookEntityA);
 
         BookEntity bookEntityB = TestDataUtil.createTestBookB(authorEntity);
@@ -64,7 +64,7 @@ public class BookEntityRepositoryIntegrationTests {
     public void testThatBookCanBeUpdated(){
         AuthorEntity authorEntity = authorRepository.save(TestDataUtil.createTestAuthorA());
 
-        BookEntity bookEntityA = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntityA = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.save(bookEntityA);
 
         bookEntityA.setTitle("UPDATED");
@@ -79,7 +79,7 @@ public class BookEntityRepositoryIntegrationTests {
     public void testThatBookCanBeDeleted(){
         AuthorEntity authorEntity = authorRepository.save(TestDataUtil.createTestAuthorA());
 
-        BookEntity bookEntityA = TestDataUtil.createTestBookA(authorEntity);
+        BookEntity bookEntityA = TestDataUtil.createTestBookEntityA(authorEntity);
         underTest.save(bookEntityA);
 
         underTest.deleteById(bookEntityA.getIsbn());
