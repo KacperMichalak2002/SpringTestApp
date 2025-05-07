@@ -98,4 +98,42 @@ public class AuthorControllerIntegrationTest {
         );
     }
 
+
+    @Test
+    public void testThatGetAuthorsReturnsHttpsStatus200WhenAuthorExist() throws Exception{
+        AuthorEntity testAuthorA = TestDataUtil.createTestAuthorA();
+        authorService.createAuthor(testAuthorA);
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testThatGetAuthorsReturnsHttpsStatus404WhenNoAuthorExist() throws Exception{
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors/99")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void testThatGetAuthorsReturnsAuthorWhenAuthorExist() throws Exception{
+        AuthorEntity testAuthorA = TestDataUtil.createTestAuthorA();
+        authorService.createAuthor(testAuthorA);
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").value(1)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value("Abigail Rose")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(80)
+        );
+    }
+
 }
