@@ -14,4 +14,6 @@ public interface BookService {
     Optional<BookEntity> findOne(String isbn);
 
     boolean isExist(String isbn);
+
+    BookEntity paritalUpdate(String isbn, BookEntity bookEntity);
 }
