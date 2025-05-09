@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class AuthorEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")
     private Long id;
 
     private String name;
